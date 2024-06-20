@@ -55,7 +55,7 @@ resource "aws_ecs_cluster" "mwaa_cluster" {
     name  = "containerInsights"
     value = "enabled"
   }
-  
+
   tags = local.common_tags
 }
 # ECS task section (Cluster + LOGS)  end
@@ -63,6 +63,7 @@ resource "aws_ecs_cluster" "mwaa_cluster" {
 module "mwaa" {
   source                            = "./platform/mwaa"
   airflow_version                   = var.airflow_version
+  airflow_configuration_options     = var.airflow_configuration_options
   environment_class                 = var.environment_class
   max_workers                       = var.max_workers
   min_workers                       = var.min_workers
