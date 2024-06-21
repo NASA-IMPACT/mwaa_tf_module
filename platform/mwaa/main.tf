@@ -7,7 +7,6 @@ locals {
   default_airflow_configuration_options = {
     "logging.logging_level"      = "INFO"
     "webserver.dag_default_view" = "graph"
-    "webserver.instance_name"    = "${var.prefix} DAGs"
   }
   airflow_configuration_options = merge(local.default_airflow_configuration_options, var.airflow_configuration_options)
 }
