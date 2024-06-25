@@ -111,4 +111,8 @@ variable "ecs_containers" {
   default = []
 }
 
-
+variable "mcp_deployment" {
+  description = "Boolean indicating if the deployment is in MCP"
+  type        = bool
+  default     = false
+}

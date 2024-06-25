@@ -80,8 +80,9 @@ module "mwaa" {
   iam_role_permissions_boundary     = var.permissions_boundary_arn
   local_dag_folder                  = var.local_dag_folder == null ? "${path.module}/application/dags/" : var.local_dag_folder
   local_requirement_file_path       = var.local_requirement_file_path == null ? "${path.module}/application/requirements/requirements.txt" : var.local_requirement_file_path
-  local_startup_script_file_path          = var.local_startup_script_file_path
-  tags = local.common_tags
+  local_startup_script_file_path    = var.local_startup_script_file_path
+  tags                              = local.common_tags
+  mcp_deployment                    = var.mcp_deployment
 }
 
 locals {

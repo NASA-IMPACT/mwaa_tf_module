@@ -86,3 +86,9 @@ variable "tags" {
   description = "A mapping of tags to assign to the resources."
   type        = map(string)
 }
+
+variable "mcp_deployment" {
+  description = "Boolean indicating if the deployment is in MCP"
+  type        = bool
+  default     = false
+}

@@ -35,6 +35,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
+  # If MCP deployment is true, then do not create resource
+  count = var.mcp_deployment == true ? 0 : 1
+
   bucket                  = aws_s3_bucket.this.id
   block_public_acls       = true
   block_public_policy     = true
