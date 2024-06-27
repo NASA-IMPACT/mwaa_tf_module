@@ -22,7 +22,7 @@ module "s3_bucket" {
   local_startup_script_file_path    = var.local_startup_script_file_path
   local_dag_folder                  = var.local_dag_folder
   tags                              = var.tags
-  mcp_deployment                    = var.mcp_deployment
+  provision_s3_access_block         = var.provision_s3_access_block
 }
 
 

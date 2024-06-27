@@ -82,7 +82,7 @@ module "mwaa" {
   local_requirement_file_path       = var.local_requirement_file_path == null ? "${path.module}/application/requirements/requirements.txt" : var.local_requirement_file_path
   local_startup_script_file_path    = var.local_startup_script_file_path
   tags                              = local.common_tags
-  mcp_deployment                    = var.mcp_deployment
+  provision_s3_access_block         = var.provision_s3_access_block
 }
 
 locals {

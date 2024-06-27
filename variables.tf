@@ -111,8 +111,7 @@ variable "ecs_containers" {
   default = []
 }
 
-variable "mcp_deployment" {
-  description = "Boolean indicating if the deployment is in MCP"
+variable "provision_s3_access_block" {
+  description = "Boolean indicating if aws_s3_bucket_public_access_block resource should be provisioned"
   type        = bool
-  default     = false
 }
