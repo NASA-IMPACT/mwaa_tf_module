@@ -35,7 +35,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
-  count = var.provision_s3_access_block == true ? 0 : 1
+  count = var.provision_s3_access_block == true ? 1 : 0
 
   bucket                  = aws_s3_bucket.this.id
   block_public_acls       = true
