@@ -21,7 +21,8 @@ module "s3_bucket" {
   local_requirement_file_path       = var.local_requirement_file_path
   local_startup_script_file_path    = var.local_startup_script_file_path
   local_dag_folder                  = var.local_dag_folder
-  tags = var.tags
+  tags                              = var.tags
+  provision_s3_access_block         = var.provision_s3_access_block
 }
 
 

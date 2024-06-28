@@ -35,6 +35,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
+  count = var.provision_s3_access_block == true ? 1 : 0
+
   bucket                  = aws_s3_bucket.this.id
   block_public_acls       = true
   block_public_policy     = true
@@ -62,7 +64,7 @@ resource "null_resource" "upload_dag_folder" {
     src_hash = data.archive_file.monitor_change_in_dag_folder.output_sha
   }
   provisioner "local-exec" {
-    command = "aws s3 sync --exclude 'requirements.txt' --exclude 'startup.sh' --exclude '*' --include '*.py' --include '*.txt' ${var.local_dag_folder} s3://${aws_s3_bucket.this.id}/${var.dag_s3_path}"
+    command = "aws s3 sync --delete --exclude 'requirements.txt' --exclude 'startup.sh' --exclude '*' --include '*.py' --include '*.txt' ${var.local_dag_folder} s3://${aws_s3_bucket.this.id}/${var.dag_s3_path}"
   }
 }
 
