@@ -14,24 +14,24 @@ output "subnets" {
   value = data.aws_subnets.subnet_ids.ids
 }
 
-output "airflow_url" {
-  value = module.mwaa.airflow_url
-}
+#output "airflow_url" {
+#  value = module.mwaa.airflow_url
+#}
 output "mwaa_role_arn" {
   value = module.mwaa.mwaa_role_arn
 }
 
-output "mwaa_environment_name" {
-  value = module.mwaa.mwaa_environment_name
-}
+#output "mwaa_environment_name" {
+#  value = module.mwaa.mwaa_environment_name
+#}
 
 output "mwaa_security_groups" {
   value = module.mwaa.mwaa_security_group_ids
 }
 
-output "mwaa_arn" {
-  value = module.mwaa.mwaa_arn
-}
+#output "mwaa_arn" {
+#  value = module.mwaa.mwaa_arn
+#}
 
 output "mwaa_module" {
   value = module.mwaa

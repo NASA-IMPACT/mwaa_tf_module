@@ -75,7 +75,7 @@ module "mwaa" {
   vpc_id                            = var.vpc_id
   account_id                        = local.account_id
   iam_role_additional_arn_policies  = var.iam_role_additional_arn_policies
-  lambda_s3_bucket_notification_arn = module.lambda_s3_bucket_notification_arn.lambda_function_arn
+  # lambda_s3_bucket_notification_arn = module.lambda_s3_bucket_notification_arn.lambda_function_arn
   dag_s3_path                       = var.dag_s3_path
   iam_role_permissions_boundary     = var.permissions_boundary_arn
   local_dag_folder                  = var.local_dag_folder == null ? "${path.module}/application/dags/" : var.local_dag_folder
@@ -115,39 +115,39 @@ module "ecs_containers" {
 }
 
 
-resource "null_resource" "add_mwaa_vars" {
-  depends_on = [module.mwaa]
-  triggers = {
-    mwaa_variables_json_file_id = var.mwaa_variables_json_file_id_path.file_id
-  }
-  provisioner "local-exec" {
-    command = <<EOF
-    python ${path.module}/set_mwaa_variables.py --mwaa_env_name ${module.mwaa.mwaa_environment_name} --file_path ${var.mwaa_variables_json_file_id_path.file_path} --aws_region ${local.aws_region}
-       EOF
-  }
-}
+#resource "null_resource" "add_mwaa_vars" {
+#  depends_on = [module.mwaa]
+#  triggers = {
+#    mwaa_variables_json_file_id = var.mwaa_variables_json_file_id_path.file_id
+#  }
+#  provisioner "local-exec" {
+#    command = <<EOF
+#    python ${path.module}/set_mwaa_variables.py --mwaa_env_name ${module.mwaa.mwaa_environment_name} --file_path ${var.mwaa_variables_json_file_id_path.file_path} --aws_region ${local.aws_region}
+#       EOF
+#  }
+#}
 
 
-module "lambda_s3_bucket_notification_arn" {
-  source                    = "terraform-aws-modules/lambda/aws"
-  version                   = "4.12.1"
-  function_name             = "${var.prefix}-mwaa-lambda"
-  description               = "lambda to update MWAA"
-  handler                   = "lambda_src.handler"
-  runtime                   = "python3.9"
-  publish                   = true
-  role_permissions_boundary = var.permissions_boundary_arn
-  timeout                   = 300
-  create_package            = false
-  local_existing_package    = "${path.module}/platform/lambda_event/lambda_src.py.zip"
-  s3_bucket                 = module.mwaa.mwaa_s3_bucket_name
-  policy                    = module.mwaa.lambda_event_s3_policy_arn
-  attach_policy             = true
-
-  environment_variables = {
-    REQUIREMENTS_S3_PATH = module.mwaa.requirements_s3_path
-    MWAA_ENV_NAME        = module.mwaa.mwaa_environment_name
-  }
-
-  tags = local.common_tags
-}
+#module "lambda_s3_bucket_notification_arn" {
+#  source                    = "terraform-aws-modules/lambda/aws"
+#  version                   = "4.12.1"
+#  function_name             = "${var.prefix}-mwaa-lambda"
+#  description               = "lambda to update MWAA"
+#  handler                   = "lambda_src.handler"
+#  runtime                   = "python3.9"
+#  publish                   = true
+#  role_permissions_boundary = var.permissions_boundary_arn
+#  timeout                   = 300
+#  create_package            = false
+#  local_existing_package    = "${path.module}/platform/lambda_event/lambda_src.py.zip"
+#  s3_bucket                 = module.mwaa.mwaa_s3_bucket_name
+#  policy                    = module.mwaa.lambda_event_s3_policy_arn
+#  attach_policy             = true
+#
+#  environment_variables = {
+#    REQUIREMENTS_S3_PATH = module.mwaa.requirements_s3_path
+#    MWAA_ENV_NAME        = module.mwaa.mwaa_environment_name
+#  }
+#
+#  tags = local.common_tags
+#}

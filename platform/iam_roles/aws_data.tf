@@ -62,8 +62,7 @@ data "aws_iam_policy_document" "mwaa" {
       "s3:*"
     ]
     resources = [
-      var.source_bucket_arn,
-      "${var.source_bucket_arn}/*"
+      "*"
     ]
   }
 

@@ -1,5 +1,4 @@
 variable "prefix" {}
-variable "source_bucket_arn" {}
 variable "mwaa_env_name" {}
 variable "force_detach_policies" {
   description = "IAM role Force detach policies"
